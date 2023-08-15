@@ -109,3 +109,54 @@ User Story 7
     Given the site is secured
     When a REST API request is made
     Then secure headers and a CORS policy should be returned
+
+User Story 8
+
+**As a** developer
+**I need** to containerize my microservice using Docker
+**So that** I can deploy it easily with all of its dependencies
+
+### Details and Assumptions
+    * Create a `Dockerfile` for repeatable builds
+    * Use a `Python:3.9-slim` image as the base
+    * It must install all of the Python requirements
+    * It should not run as `root`
+    * It should use the `gunicorn` wsgi server as an entry point
+### Acceptance Criteria
+    gherkin
+    Given the Docker image named accounts has been created
+    When I use `docker run accounts`
+    Then I should see the accounts service running in Docker
+
+User Story 9
+
+**As a** service provider
+**I need** my service to run on Kubernetes
+**So that** I can easily scale and manage the service
+
+### Details and Assumptions
+    * Kubernetes manifests will be created in yaml format
+    * These manifests could be useful to create a CD pipeline
+    * The actual deployment will be to OpenShift
+### Acceptance Criteria
+    gherkin
+    Given the Kubernetes manifests have been created
+    When I use the oc command to apply the manifests
+    Then the service should be deployed and run in Kubernetes
+
+User Story 10
+
+**As a** developer
+**I need** to create a CD pipeline to automate deployment to Kubernetes
+**So that** the developers are not wasting their time doing it manually
+
+### Details and Assumptions
+    * Use Tekton to define the pipeline
+    * It should clone, lint, test, build, and deploy the service
+    * Deployment should be to OpenShift
+    * It can use a manual trigger for this MVP
+### Acceptance Criteria
+    gherkin
+    Given the CD pipeline has been created
+    When I trigger the pipeline run
+    Then I should see the accounts service deployed to OpenShift
